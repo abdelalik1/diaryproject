@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% with messages = get_flashed_messages() %}
+<ul>
+{% if messages %}
+    {% for message in messages %}
+    <li><span style="color:black;">{{ message }}</span></li>
+    <script>alert(' {{ message }} ')</script>
+    {% endfor %}
+{% endif %}
+</ul>
+{% endwith %}
+
+</body>
+</html>
