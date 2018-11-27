@@ -3,10 +3,14 @@
 
 {% block content %}
 <form  method="post" novalidate>
+    {% if err %}
+    <p>{{ err }}</p>
+    {% endif %}
     <p>{{ form.username.label }} {{ form.username(size=32) }}</p> {% for err in form.username.errors %}<span style="color:red;"> {{ err }}</span> {% endfor %}
     <p>{{ form.password.label }} {{ form.password(size=32) }}</p> {% for err in form.password.errors %}<span style="color:red;"> {{ err }}</span> {% endfor %}
     <p> {{ form.remember_me.label }} {{ form.remember_me() }}</p>
     <p> {{ form.hidden_tag() }}</p> {% for err in form.hidden_tag.errors %}<span style="color:red;"> {{ err }}</span> {% endfor %}
     <p> {{ form.signin() }}</p>
 </form>
+<p>Not Register ? <a href="{{ url_for('register') }}">Click Here</a> </p>
 {% endblock %}

@@ -15,7 +15,16 @@
     {% if current_user.is_anonymous %}
     <a href="{{ url_for('get_login') }}">Sign In</a>
     {% else %}
+    <a href="{{ url_for('profil', id=current_user.id) }}" >Profil</a>
     <a href="{{ url_for('signout') }}">Log out</a>
+    {% endif %}
+
+
+</div>
+
+<div>
+    {% if current_user.is_authenticated %}
+    <p> Welcome {{ namee }}</p>
     {% endif %}
 
 </div>
@@ -24,7 +33,7 @@
 <ul>
 {% if messages %}
     {% for message in messages %}
-    <li><span style="color:black;">{{ message }}</span></li>
+    <li><span style="color:green;">{{ message }}</span></li>
 
     {% endfor %}
 {% endif %}

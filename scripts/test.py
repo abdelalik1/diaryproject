@@ -1,12 +1,8 @@
-from models import User, Post
-from run import db
+from hashlib import md5
 
 
-#a = User(username='manal', email='manal@gmail.com', password='manal2312@')
-#db.session.add(a)
-#db.session.commit()
+#a = 'admin'
 
-b = User(username='admin', email='abdelali@khalfi.me')
-b.set_password_hash('abdelali123')
-db.session.add(b)
-db.session.commit()
+b = md5('amine@123'.encode('utf-8')).hexdigest()
+
+print(b)

@@ -1,6 +1,6 @@
 from run import db, login
 from datetime import datetime
-from werkzeug import security
+from hashlib import md5
 from flask_login import UserMixin
 
 
@@ -8,20 +8,22 @@ from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(9), unique=True, index=True)
-    email = db.Column(db.String(11), index=True, unique=True)
+    fullname = db.Column(db.String(30), index=True)
+    username = db.Column(db.String(9), index=True)
+    email = db.Column(db.String(11), unique=True)
     password = db.Column(db.String(15))
+    
+
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return "<User {} >".format(self.username)
 
-    def set_password_hash(self, passwordd):
-        self.password = security.generate_password_hash(passwordd)
-
-
-    def check_pass(self, password):
-        return security.check_password_hash(self.password, password)
+    def md5hash(self, usr):
+        self.password = md5(usr.encode('utf-8')).hexdigest()
+    def avatar(self, size):
+        encemail = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'http://gravatar.com/avatar/{}/?d=identicon&s={}'.format(encemail, size)
 
 
 
@@ -33,3 +35,7 @@ class Post(db.Model):
 
     def __repr__(self):
         return "<Post {} >".format(self.body)
+
+
+
+
